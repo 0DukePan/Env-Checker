@@ -1,0 +1,219 @@
+{
+  "name": "env-checker",
+  "displayName": "Env Checker - Security Scanner",
+  "description": "Advanced security scanner for environment files with real-time detection and quick fixes",
+  "version": "1.0.0",
+  "publisher": "your-publisher-name",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": ["Linters", "Other", "Security"],
+  "keywords": ["security", "environment", "env", "scanner", "dotenv"],
+  "activationEvents": ["onLanguage:dotenv", "onLanguage:plaintext", "workspaceContains:**/.env*"],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "dotenv",
+        "aliases": ["Environment", "dotenv", "env"],
+        "extensions": [".env", ".env.local", ".env.development", ".env.production", ".env.test"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "envChecker.scanFile",
+        "title": "Scan Current File",
+        "category": "Env Checker"
+      },
+      {
+        "command": "envChecker.scanWorkspace",
+        "title": "Scan All Environment Files",
+        "category": "Env Checker"
+      },
+      {
+        "command": "envChecker.showReport",
+        "title": "Show Security Report",
+        "category": "Env Checker"
+      },
+      {
+        "command": "envChecker.exportReport",
+        "title": "Export Security Report",
+        "category": "Env Checker"
+      },
+      {
+        "command": "envChecker.toggleRule",
+        "title": "Toggle Security Rule",
+        "category": "Env Checker"
+      },
+      {
+        "command": "envChecker.openSettings",
+        "title": "Open Settings",
+        "category": "Env Checker"
+      },
+      {
+        "command": "envChecker.manageRules",
+        "title": "Manage Rules",
+        "category": "Env Checker"
+      },
+      {
+        "command": "envChecker.quickSettings",
+        "title": "Quick Settings",
+        "category": "Env Checker"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "envChecker.scanFile",
+          "when": "resourceExtname =~ /^\\.env/",
+          "group": "envChecker"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "envChecker.scanFile",
+          "when": "resourceExtname =~ /^\\.env/",
+          "group": "envChecker"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "envChecker.scanFile",
+          "when": "editorLangId == dotenv || resourceExtname =~ /^\\.env/"
+        },
+        {
+          "command": "envChecker.scanWorkspace"
+        },
+        {
+          "command": "envChecker.showReport"
+        },
+        {
+          "command": "envChecker.exportReport"
+        },
+        {
+          "command": "envChecker.openSettings"
+        },
+        {
+          "command": "envChecker.manageRules"
+        },
+        {
+          "command": "envChecker.quickSettings"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Env Checker",
+      "properties": {
+        "envChecker.enableRealTimeScanning": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable real-time scanning of environment files"
+        },
+        "envChecker.scanOnSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically scan files when saved"
+        },
+        "envChecker.showInlineErrors": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show security issues inline in the editor"
+        },
+        "envChecker.enabledSeverities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["critical", "warning", "info"]
+          },
+          "default": ["critical", "warning", "info"],
+          "description": "Which severity levels to show"
+        },
+        "envChecker.customRulesPath": {
+          "type": "string",
+          "default": "",
+          "description": "Path to custom rules JSON file"
+        },
+        "envChecker.excludePatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": ["node_modules/**", "dist/**", "build/**"],
+          "description": "File patterns to exclude from scanning"
+        },
+        "envChecker.notificationLevel": {
+          "type": "string",
+          "enum": ["none", "critical", "warning", "info"],
+          "default": "critical",
+          "description": "Minimum severity level for notifications"
+        },
+        "envChecker.autoFixOnSave": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically apply fixes when saving files"
+        },
+        "envChecker.maxFileSizeKB": {
+          "type": "number",
+          "default": 1024,
+          "minimum": 1,
+          "maximum": 10240,
+          "description": "Maximum file size to scan (in KB)"
+        },
+        "envChecker.scanTimeout": {
+          "type": "number",
+          "default": 5000,
+          "minimum": 1000,
+          "maximum": 30000,
+          "description": "Scan timeout in milliseconds"
+        },
+        "envChecker.enableTelemetry": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable anonymous usage telemetry"
+        },
+        "envChecker.ruleProfiles": {
+          "type": "string",
+          "default": "default",
+          "description": "Active rule profile name"
+        },
+        "envChecker.workspaceSpecificRules": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable workspace-specific rule configurations"
+        }
+      }
+    },
+    "views": {
+      "explorer": [
+        {
+          "id": "envCheckerReport",
+          "name": "Env Security Report",
+          "when": "envChecker.hasFindings"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "panel": [
+        {
+          "id": "envCheckerPanel",
+          "title": "Env Checker",
+          "icon": "$(shield)"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "glob": "^10.0.0"
+  }
+}
