@@ -140,10 +140,6 @@ const results = await scanner.scanFile('.env');
 console.log(`Found ${results.findings.length} security issues`);
 ```
 
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
-
 ### Development Setup
 ```bash
 git clone https://github.com/your-org/env-checker
@@ -160,9 +156,6 @@ npm run test:extension     # Test VS Code extension
 npm run test:coverage      # Generate coverage report
 ```
 
-## 📝 License
-
-MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 🐛 Issues & Support
 
