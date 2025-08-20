@@ -37,9 +37,9 @@ A comprehensive security scanner for environment files that provides real-time d
 4. Click Install
 
 ### From VSIX Package
-\`\`\`bash
+```bash
 code --install-extension env-checker-1.0.0.vsix
-\`\`\`
+```
 
 ## 🛠️ Quick Start
 
@@ -52,17 +52,17 @@ code --install-extension env-checker-1.0.0.vsix
 ## ⚙️ Configuration
 
 ### Basic Settings
-\`\`\`json
+```json
 {
   "envChecker.enabledSeverities": ["critical", "warning", "info"],
   "envChecker.notificationLevel": "warning",
   "envChecker.autoScan": true,
   "envChecker.scanOnSave": true
 }
-\`\`\`
+```
 
 ### Custom Rules
-\`\`\`json
+```json
 {
   "envChecker.customRules": [
     {
@@ -74,7 +74,7 @@ code --install-extension env-checker-1.0.0.vsix
     }
   ]
 }
-\`\`\`
+```
 
 ## 🔧 Commands
 
@@ -131,34 +131,34 @@ code --install-extension env-checker-1.0.0.vsix
 
 The core scanning engine can be used independently:
 
-\`\`\`typescript
+```typescript
 import { EnvScanner, SecurityRules } from 'env-checker-core';
 
 const scanner = new EnvScanner();
 const results = await scanner.scanFile('.env');
 
 console.log(`Found ${results.findings.length} security issues`);
-\`\`\`
+```
 
 ## 🤝 Contributing
 
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
 ### Development Setup
-\`\`\`bash
+```bash
 git clone https://github.com/your-org/env-checker
 cd env-checker
 npm install
 npm run compile
-\`\`\`
+```
 
 ### Running Tests
-\`\`\`bash
+```bash
 npm test                    # Run all tests
 npm run test:core          # Test core engine only
 npm run test:extension     # Test VS Code extension
 npm run test:coverage      # Generate coverage report
-\`\`\`
+```
 
 ## 📝 License
 
@@ -175,5 +175,3 @@ MIT License - see [LICENSE](LICENSE) file for details.
 - VS Code Extension API documentation
 - Security research from OWASP
 - Community feedback and contributions
-
-
