@@ -8,16 +8,6 @@ You know that sinking feeling when you realize you've pushed sensitive credentia
 
 The best part? It's framework-agnostic, so whether you're building a VS Code extension, a CLI tool, or integrating it into your web app, this engine has got your back.
 
-## How It's Organized
-
-\`\`\`
-src/core/
-├── types.ts      # All the TypeScript magic (interfaces, enums, etc.)
-├── rules.ts      # The security patterns that catch the bad stuff
-├── scanner.ts    # The main engine that does the heavy lifting
-├── reporter.ts   # Makes pretty reports from ugly security issues
-└── index.ts      # Your one-stop shop for imports
-\`\`\`
 
 ## Getting Started (The Fun Part!)
 
